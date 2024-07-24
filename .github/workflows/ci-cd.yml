@@ -40,7 +40,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Push Docker image to Docker Hub
-      run: docker push ${{ secrets.DOCKER_USERNAME }}/myapp:latest
+      run: docker push ${{ secrets.DOCKER_USERNAME }}/myapp:v1
 
     - name: Deploy to Kubernetes
       uses: azure/k8s-deploy@v4
