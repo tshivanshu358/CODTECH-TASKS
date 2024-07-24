@@ -31,7 +31,7 @@ jobs:
       run: go test ./...
 
     - name: Build Docker image
-      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/myapp:latest .
+      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/myapp:v1 .
 
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
