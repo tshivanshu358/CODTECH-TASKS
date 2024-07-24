@@ -21,6 +21,9 @@ jobs:
       with:
         go-version: 1.18
 
+    - name: Install dependencies1
+      run: go mod init modfile .
+
     - name: Install dependencies
       run: go mod tidy
 
