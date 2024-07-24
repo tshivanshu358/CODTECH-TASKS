@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload and View</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.querySelector("form");
+            form.addEventListener("submit", async (event) => {
+                event.preventDefault();
+                const fileInput = document.querySelector("input[type='file']");
+                const formData = new FormData();
+                formData.append("file", fileInput.files[0]);
+
+                const response = await fetch("/upload", {
+                    method: "POST",
+                    body: formData
+                });
+                const result = await response.text();
+                alert(result);
+                fetchFiles();
+            });
+
+            async function fetchFiles() {
+                const response = await fetch("/view");
+                const files = await response.json();
+                const fileList = document.querySelector("ul");
+                fileList.innerHTML = "";
+                files.forEach(file => {
+                    const li = document.createElement("li");
+                    li.textContent = file;
+                    fileList.appendChild(li);
+                });
+            }
+
+            fetchFiles();
+        });
+    </script>
+</head>
+<body>
+    <h1>File Upload and View</h1>
+    <form>
+        <input type="file" name="file">
+        <button type="submit">Upload</button>
+    </form>
+    <ul>
+        <!-- List of files will be populated here by the view handler -->
+    </ul>
+</body>
+</html>
